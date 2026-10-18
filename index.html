@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta name="google" content="notranslate">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>An-Noor Quran Portal | Read Holy Quran Online</title>
+    <meta name="description" content="A beautiful, high-contrast, and fast online Quran reader designed for global accessibility and clear reading.">
+    
+    <!-- Premium Google Fonts -->
+    <link href="https://googleapis.com" rel="stylesheet">
+
+    <style>
+      :root {
+        --bg-color: #fbf9f4;       /* Soft warm cream background */
+        --card-bg: #ffffff;        /* White text reading containers */
+        --text-color: #1a1a1a;     /* Charcoal black text */
+        --translation-color: #4a4a4a; /* Slate gray translation font */
+        --accent-green: #1e5631;   /* Elegant Islamic green */
+        --accent-red: #d32f2f;     /* Palestine donation button color */
+        --border-color: #e6dfd3;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: 'Amiri', serif, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        user-select: none;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px 15px;
+        box-sizing: border-box;
+      }
+
+      /* Sticky Top Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 25px;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      }
+
+      .brand-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--accent-green);
+        text-decoration: none;
+      }
+
+      .dropdown {
+        padding: 10px 15px;
+        font-size: 16px;
+        font-family: 'Inter', sans-serif;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        cursor: pointer;
+        width: 220px;
+      }
+
+      /* Reading Card Box */
+      .quran-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 50px 40px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        margin-bottom: 50px;
+      }
+
+      * {
+  -webkit-user-select: Safari; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: Standard syntax; /* Non-prefixed version */
+}
+
+      h1 {
+        font-size: 42px;
+        color: var(--accent-green);
+        margin-top: 0;
+        margin-bottom: 30px;
+      }
+
+      /* Large text settings optimized for your grandmother */
+      .quran-text {
+        font-size: 38px;
+        line-height: 2.5;
+        font-weight: 700;
+        text-align: center;
+        direction: rtl;
+        margin-bottom: 40px;
+        word-spacing: 4px;
+      }
+
+      /* English Layout script */
+      .translation-box {
+        border-top: 2px dashed var(--border-color);
+        padding-top: 30px;
+        font-family: 'Inter', sans-serif;
+        font-size: 20px;
+        line-height: 1.8;
+        color: var(--translation-color);
+        text-align: left;
+        direction: ltr; 
+      }
+
+      .verse {
+        margin-bottom: 18px;
+      }
+      .verse-num {
+        color: var(--accent-green);
+        font-weight: bold;
+        margin-right: 8px;
+      }
+
+      footer {
+        margin-bottom: 40px;
+      }
+
+      .btn-donate {
+        display: inline-block;
+        padding: 16px 32px;
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 10px;
+        background-color: var(--accent-red);
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      
+      <!-- Top Sticky Navigation Menu Header bar -->
+      <header class="navbar">
+        <a href="#" class="brand-name">An-Noor Portal | بَوَّابَة نُور</a>
+        
+        <div class="surah-picker">
+          <select class="dropdown" id="surahSelect" onchange="loadSurah(this.value)">
+            <!-- Options dynamically built down to 114 below -->
+          </select>
+        </div>
+      </header>
+      
+      <!-- Universal Dynamic Reader Window Box template -->
+      <main class="quran-card">
+        <h1 id="surahTitle">سُورَةُ الْفَاتِحَةِ</h1>
+        
+        <div class="quran-text" id="arabicView">
+          جاري التحميل... (Loading verses)
+        </div>
+        
+        <div class="translation-box" id="englishView">
+          Loading global English translation...
+        </div>
+      </main>
+
+      <!-- Palestine Direct Action Option Shortcut -->
+      
+      </footer>
+
+    </div>
+
+    <!-- Bulletproof Global Live Script Data Loader -->
+    <script>
+      const selectMenu = document.getElementById('surahSelect');
+      
+      const surahNames = [
+        "Al-Fatiha", "Al-Baqara", "Aal-Imran", "An-Nisaa'", "Al-Ma'ida", "Al-An'am", 
+        "Al-A'raf", "Al-Anfal", "Al-Tawba", "Yunus", "Hud", "Yusuf", "Ar-Ra'd", 
+        "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Israa'", "Al-Kahf", "Maryam", "Ta-Ha", 
+        "Al-Anbiyaa'", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan", "Ash-Shu'araa'", 
+        "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum", "Luqman", "As-Sajda", 
+        "Al-Ahzab", "Saba'", "Fatir", "Ya-Sin", "As-Saffat", "Sad", "Az-Zumar", 
+        "Ghafir", "Fussilat", "Ash-Shura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jathiya", 
+        "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf", "Adh-Dhariyat", 
+        "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'a", "Al-Hadid", 
+        "Al-Mujadila", "Al-Hashr", "Al-Mumtahina", "As-Saff", "Al-Jumu'a", "Al-Munafiqun", 
+        "At-Taghabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqa", 
+        "Al-Ma'arij", "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyama", 
+        "Al-Insan", "Al-Mursalat", "An-Naba", "An-Nazi'at", "'Abasa", "At-Takwir", 
+        "Al-Infitar", "Al-Mutaffifin", "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", 
+        "Al-Ghashiya", "Al-Fajr", "Al-Balad", "Ash-Shams", "Al-Layl", "Ad-Duha", 
+        "Ash-Sharh", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyina", "Az-Zalzala", 
+        "Al-'Adiyat", "Al-Qari'a", "At-Takathur", "Al-'Asr", "Al-Humaza", "Al-Fil", 
+        "Quraysh", "Al-Ma'un", "Al-Kawthar", "Al-Kafirun", "An-Nasr", "Al-Masad", 
+        "Al-Ikhlas", "Al-Falaq", "An-Nas"
+      ];
+
+      // Auto populates dropdown lists smoothly up to 114
+      for (let i = 1; i <= 114; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = `${i}. ${surahNames[i-1]}`;
+        selectMenu.appendChild(opt);
+      }
+
+      async function loadSurah(chapterNum) {
+        document.getElementById('arabicView').innerText = "جاري التحميل... (Loading)";
+        document.getElementById('englishView').innerText = "Loading translation...";
+        
+        try {
+          // Unified fallback: Pulls clean verified datasets instantly over open networks
+          const base = "https://quran-json.risanb.com";
+          const [arabicRes, englishRes] = await Promise.all([
+            fetch(`${base}/text/uthmani/chapters/${chapterNum}.json`),
+            fetch(`${base}/translations/en-saheeh/chapters/${chapterNum}.json`)
+          ]);
+
+          if (!arabicRes.ok || !englishRes.ok) throw new Error("Network data loading fault");
+
+          const arabicData = await coralJson(arabicRes);
+          const englishData = await coralJson(englishRes);
+
+          // Update header label values
+          document.getElementById('surahTitle').innerText = `${surahNames[chapterNum-1]}`;
+
+          // Format full complete Arabic paragraphs matching verse spans
+          let textString = "";
+          arabicData.verses.forEach(v => {
+            textString += `${v.text} ﴿${v.id}﴾ `;
+          });
+          document.getElementById('arabicView').innerHTML = textString;
+
+  // THE FIXED BULLETPROOF CODE:
+let translationString = "";
+englishData.verses.forEach(v => {
+  // We added 'v.text' here because the database stores the text under that key!
+  translationString += `<div class="verse"><span class="verse-num">[${v.id}]</span> ${v.text || v.translation || v.english}</div>`;
+})
+          document.getElementById('englishView').innerHTML = translationString;
+
+        } catch (err) {
+          console.error(err);
+          document.getElementById('arabicView').innerText = "Network update fault. Please confirm your Live Server is connected online!";
+        }
+      }
+
+      async function coralJson(res) { return await res.json(); }
+
+      // Launch starting automatically at Chapter 1
+      loadSurah(1);
+
+    </script>
+  </body>
+</html>
